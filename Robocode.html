@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboCode | Pixel Play</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Press+Start+2P&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/robocode.css">
+</head>
+<body>
+
+<header class="topo">
+    <a href="jogar.html" class="nav-btn">← Voltar</a>
+    <div class="nome">ROBOCODE</div>
+    <div class="hud">
+        <div>FASE <b id="fase">1/4</b></div>
+        <div>XP <b id="xp">0</b></div>
+        <div>ERROS <b id="erros">0</b></div>
+        <div>💎 <b id="cristais">0/1</b></div>
+    </div>
+</header>
+
+<main class="jogo">
+
+    <section class="missao">
+        <span class="tag" id="tag">MISSÃO 01</span>
+        <h1 id="titulo"></h1>
+        <p id="texto"></p>
+    </section>
+
+    <section class="area">
+
+        <div class="painel">
+            <div class="painel-titulo">MAPA DA MISSÃO</div>
+            <div class="mapa" id="mapa">
+                <div class="grade" id="grade"></div>
+                <div class="robo" id="robo"><span>🤖</span></div>
+            </div>
+            <div class="legenda">
+                <span>🤖 Robô</span><span>💎 Cristal (+50 XP)</span><span>🧱 Parede</span><span>🏁 Chegada</span>
+            </div>
+        </div>
+
+        <div class="painel">
+            <div class="painel-titulo">EDITOR · clique para inserir</div>
+            <div class="comandos" id="comandos"></div>
+
+            <div class="editor">
+                <div class="nums" id="nums" aria-hidden="true"></div>
+                <textarea id="codigo" spellcheck="false" autocomplete="off"></textarea>
+            </div>
+
+            <div class="exec">Último passo: <code id="linhaAtual">aguardando código...</code></div>
+
+            <div class="acoes">
+                <button id="executar" class="b-exec">▶ EXECUTAR</button>
+                <button id="reiniciar" class="b-sec">↻ REINICIAR</button>
+                <button id="vel" class="b-sec">⏩ 1x</button>
+                <button id="limpar" class="b-sec">🗑</button>
+            </div>
+
+            <div id="mensagem" class="mensagem" aria-live="polite"></div>
+            <div id="dica" class="dica" hidden></div>
+        </div>
+
+    </section>
+
+    <section class="conceito" id="conceito"></section>
+</main>
+
+<div class="overlay" id="final" hidden>
+    <div class="modal">
+        <h2>FASE COMPLETA!</h2>
+        <div class="estrelas" id="estrelas"></div>
+        <p id="resumo"></p>
+        <div class="acoes-final">
+            <button id="proxima" class="b-exec">PRÓXIMA FASE ▶</button>
+            <button id="repetir" class="b-sec">JOGAR DE NOVO</button>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/robocode.js"></script>
+</body>
+</html>

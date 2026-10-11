@@ -1,0 +1,131 @@
+:root {
+    --bg: #1a1238; --deep: #0f0a24; --card: #241654; --card2: #2e1c6b;
+    --pink: #ff4f8b; --cyan: #3de0ff; --yellow: #ffd23f; --green: #5dff9a;
+    --text: #f5f1ff; --muted: #b9b0dd;
+    --px: "Press Start 2P", monospace;
+    --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+
+body {
+    min-height: 100vh; color: var(--text); font-family: "Sora", system-ui, sans-serif;
+    background: radial-gradient(ellipse at 50% 0%, #2d1d66, var(--bg) 55%, var(--deep));
+}
+body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background:
+        linear-gradient(rgba(255,255,255,.03) 2px, transparent 2px) 0 0 / 36px 36px,
+        linear-gradient(90deg, rgba(255,255,255,.03) 2px, transparent 2px) 0 0 / 36px 36px;
+}
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+/* Topo */
+.topo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem clamp(1rem, 4vw, 3rem); }
+.nav-btn { font: 0.7rem var(--px); color: var(--text); text-decoration: none; padding: .8rem 1rem; border: 3px solid var(--text); }
+.nav-btn:hover { background: var(--yellow); color: var(--deep); border-color: var(--yellow); }
+.nome { font: 1rem var(--px); color: var(--cyan); text-shadow: 3px 3px 0 var(--pink); }
+.hud { display: flex; flex-wrap: wrap; gap: .6rem; }
+.hud div { font: .6rem var(--px); color: var(--muted); background: var(--card); border: 3px solid var(--card2); padding: .6rem .8rem; }
+.hud b { color: var(--yellow); font-weight: 400; margin-left: .3rem; }
+.hud .pulso { animation: pulso .5s steps(3); }
+@keyframes pulso { 50% { transform: scale(1.25); } }
+
+.jogo { width: min(1200px, 94%); margin: 1rem auto 4rem; }
+
+/* Missão */
+.missao { margin-bottom: 1.8rem; }
+.tag { display: inline-block; font: .6rem var(--px); background: var(--yellow); color: var(--deep); padding: .5rem .7rem; margin-bottom: 1rem; }
+h1 { font: clamp(1.1rem, 3.5vw, 2rem) / 1.4 var(--px); text-shadow: 3px 3px 0 var(--pink), 6px 6px 0 var(--deep); margin-bottom: 1rem; }
+.missao p { max-width: 70ch; color: var(--muted); line-height: 1.7; }
+
+/* Painéis */
+.area { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; align-items: start; }
+.painel { background: var(--card); border: 4px solid var(--card2); box-shadow: 8px 8px 0 var(--deep); padding: 1.2rem; min-width: 0; }
+.painel-titulo { font: .6rem var(--px); color: var(--cyan); margin-bottom: 1.1rem; }
+
+/* Mapa */
+.mapa {
+    position: relative; container-type: inline-size; width: 100%; aspect-ratio: var(--cols) / var(--rows);
+    border: 4px solid var(--cyan); background: var(--deep);
+}
+.mapa.vitoria { animation: brilho 1s steps(4); }
+@keyframes brilho { 50% { box-shadow: 0 0 0 6px var(--green); } }
+.grade { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--cols), 1fr); grid-template-rows: repeat(var(--rows), 1fr); }
+.celula {
+    display: grid; place-items: center; font-size: calc(100cqw / var(--cols) * .55);
+    background: #1c1242; border: 1px solid rgba(255,255,255,.06); transition: background .2s;
+}
+.celula.parede { background: #3a2a7a; box-shadow: inset 4px 4px 0 #4c3a9a, inset -4px -4px 0 #241654; }
+.celula.chegada { background: rgba(255,210,63,.2); }
+.celula.trilha { background: rgba(61,224,255,.18); }
+.celula.cristal span, .celula.chegada { animation: flutua 1.4s steps(2) infinite; }
+@keyframes flutua { 50% { transform: translateY(-3px); } }
+.robo {
+    position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none;
+    width: calc(100% / var(--cols)); height: calc(100% / var(--rows));
+    display: grid; place-items: center; font-size: calc(100cqw / var(--cols) * .6);
+    transform: translate(calc(var(--x) * 100%), calc(var(--y) * 100%));
+    transition: transform .3s steps(3);
+}
+.robo.bateu { animation: tremer .4s steps(4); }
+.mapa.bateu { box-shadow: 0 0 0 5px var(--pink); }
+@keyframes tremer { 25% { margin-left: -6px; } 75% { margin-left: 6px; } }
+.legenda { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1rem; font-size: .78rem; color: var(--muted); }
+
+/* Editor */
+.comandos { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.comandos button {
+    font: .72rem var(--mono); color: var(--cyan); background: var(--deep); border: 2px solid var(--cyan);
+    padding: .45rem .6rem; cursor: pointer;
+}
+.comandos button:hover { background: var(--cyan); color: var(--deep); }
+.editor { display: grid; grid-template-columns: 2.6rem 1fr; background: var(--deep); border: 3px solid var(--card2); }
+.editor:focus-within { border-color: var(--yellow); }
+.nums { padding: 1rem 0; text-align: center; white-space: pre; font: .85rem/1.6rem var(--mono); color: #5b4d94; background: #150e30; user-select: none; }
+#codigo {
+    width: 100%; min-height: 11rem; padding: 1rem; resize: none; overflow: hidden; border: 0; outline: 0;
+    background: transparent; color: var(--green); caret-color: var(--yellow); font: .85rem/1.6rem var(--mono); tab-size: 2;
+}
+#codigo::placeholder { color: #4b3f80; }
+.exec { margin-top: .8rem; font-size: .75rem; color: var(--muted); }
+.exec code { color: var(--cyan); font-family: var(--mono); }
+
+/* Botões */
+.acoes { display: grid; grid-template-columns: 1fr auto auto auto; gap: .6rem; margin-top: 1rem; }
+.acoes button, .acoes-final button { font: .65rem var(--px); padding: 1rem .9rem; border: 0; cursor: pointer; transition: transform .08s steps(2), box-shadow .08s steps(2); }
+.b-exec { background: var(--yellow); color: var(--deep); box-shadow: 0 5px 0 #c9971a; }
+.b-sec { background: var(--card2); color: var(--text); box-shadow: 0 5px 0 var(--deep); }
+.acoes button:hover:not(:disabled), .acoes-final button:hover { transform: translateY(-2px); }
+.acoes button:active:not(:disabled), .acoes-final button:active { transform: translateY(5px); box-shadow: none; }
+.acoes button:disabled { opacity: .45; cursor: not-allowed; }
+
+.mensagem { margin-top: 1.2rem; padding: .9rem; min-height: 3rem; font-size: .85rem; line-height: 1.55; color: var(--muted); background: rgba(255,255,255,.04); border-left: 4px solid var(--muted); }
+.mensagem.erro { color: #ff9bb8; border-color: var(--pink); background: rgba(255,79,139,.08); }
+.mensagem.sucesso { color: var(--green); border-color: var(--green); background: rgba(93,255,154,.08); }
+.mensagem.rodando { color: var(--cyan); border-color: var(--cyan); }
+.dica { margin-top: .8rem; padding: .9rem; font-size: .82rem; line-height: 1.55; color: #e8dca8; background: rgba(255,210,63,.08); border-left: 4px solid var(--yellow); }
+.dica code, .conceito code, .mensagem code { font-family: var(--mono); color: var(--yellow); }
+
+/* Conceito */
+.conceito { margin-top: 1.8rem; padding: 1.4rem; background: var(--card); border: 4px solid var(--card2); box-shadow: 8px 8px 0 var(--deep); display: grid; gap: .6rem 2rem; grid-template-columns: 1fr 1fr; align-items: center; }
+.conceito h3 { grid-column: 1 / -1; font: .65rem var(--px); color: var(--pink); }
+.conceito h4 { font-size: 1.1rem; margin-bottom: .4rem; }
+.conceito p { color: var(--muted); line-height: 1.65; font-size: .9rem; }
+.conceito pre { background: var(--deep); padding: 1rem; font: .8rem/1.6 var(--mono); color: var(--green); overflow-x: auto; }
+
+/* Vitória */
+.overlay { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 1rem; background: rgba(15,10,36,.88); }
+.modal { text-align: center; background: var(--card); border: 4px solid var(--yellow); box-shadow: 8px 8px 0 var(--deep); padding: 2rem 1.6rem; max-width: 460px; }
+.modal h2 { font: 1.1rem/1.4 var(--px); color: var(--yellow); text-shadow: 3px 3px 0 var(--pink); }
+.estrelas { font-size: 2.4rem; letter-spacing: .4rem; color: var(--yellow); margin: 1.2rem 0; }
+.modal p { color: var(--muted); line-height: 1.6; margin-bottom: 1.6rem; }
+.acoes-final { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
+.confete { position: fixed; top: -12px; z-index: 30; width: 10px; height: 10px; pointer-events: none; animation: cair 2.2s linear forwards; }
+@keyframes cair { to { transform: translateY(110vh) rotate(360deg); } }
+
+@media (max-width: 950px) { .area, .conceito { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .acoes { grid-template-columns: 1fr 1fr; } .b-exec { grid-column: 1 / -1; } }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberScape | Pixel Play</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Press+Start+2P&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/cyberscape.css">
+</head>
+<body>
+<canvas id="fundo" aria-hidden="true"></canvas>
+
+<header class="topo">
+    <a href="jogar.html" class="nav-btn">← Voltar</a>
+    <div class="marca">
+        <h1 class="glitch" data-text="CYBERSCAPE">CYBERSCAPE</h1>
+        <p>LABORATÓRIO DIGITAL // ACADEMIA DE PROGRAMAÇÃO</p>
+    </div>
+    <div class="hud">
+        <div class="chip">RANK <b id="rank"></b></div>
+        <div class="chip xp">
+            <span>XP <b id="xp-txt"></b></span>
+            <div class="barra"><div id="xp-barra"></div></div>
+        </div>
+        <div class="chip">❖ <b id="cred">0</b></div>
+        <div class="chip">🔥 <b id="streak">0x</b></div>
+        <button id="b-som" class="icone" title="Som">🔊</button>
+        <button id="b-loja" class="icone">🛒 LOJA</button>
+        <button id="b-manual" class="icone">📑 MANUAL</button>
+    </div>
+</header>
+
+<main class="jogo">
+    <nav class="rede" id="rede" aria-label="Missões"></nav>
+
+    <section class="grid">
+        <article class="painel">
+            <div class="status"><span><i class="ponto"></i> SISTEMA ONLINE</span><span id="badge" class="badge"></span></div>
+            <h2 id="titulo"></h2>
+            <p id="desc" class="desc"></p>
+            <div class="conceito"><strong>📚 O QUE VOCÊ VAI APRENDER</strong><p id="conceito"></p></div>
+            <div class="alerta"><span>ALERTA DE RASTREIO</span><div><i></i><i></i><i></i></div></div>
+            <div id="hint-box" class="hint" hidden></div>
+            <button id="b-dica" class="sec">💡 Comprar dica (-10 ❖)</button>
+        </article>
+
+        <article class="painel" id="terminal">
+            <div class="barra-term"><span><i></i><i></i><i></i> <b id="arq"></b></span><em>JS ENGINE</em></div>
+            <pre class="codigo" id="codigo"></pre>
+            <button id="b-exec" class="exec">🚀 EXECUTAR EXPLOIT</button>
+            <p id="mensagem" class="mensagem" aria-live="polite"></p>
+            <div class="log" id="log"></div>
+        </article>
+    </section>
+</main>
+
+<div class="overlay" id="modal" hidden><div class="modal" id="modal-corpo"></div></div>
+
+<script src="assets/js/cyberscape.js"></script>
+</body>
+</html>
